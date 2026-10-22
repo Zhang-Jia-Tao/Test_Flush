@@ -1,0 +1,28 @@
+{
+  "events": [
+    {
+      "id": "EV-BROKEN-01",
+      "type": "news",
+      "occurredAt": "not-a-date",
+      "occurredAtTz": "UTC",
+      "title": "时间戳非法的演示事件",
+      "source": { "name": "坏数据演示", "tier": "B", "url": "https://example.com/broken?fake=1" },
+      "summary": "occurredAt 无法解析，用于演示异常数据状态。",
+      "evidence": [{ "kind": "excerpt", "text": "该事件时间戳非法。", "sourceTier": "B" }],
+      "contentTags": ["fact"],
+      "direction": "neutral"
+    },
+    {
+      "id": "EV-BROKEN-02",
+      "type": "news",
+      "occurredAt": "2026-09-15T10:00:00+08:00",
+      "occurredAtTz": "Asia/Shanghai",
+      "title": "来源等级非法的演示事件",
+      "source": { "name": "坏数据演示", "tier": "X", "url": "https://example.com/broken2?fake=1" },
+      "summary": "tier=X 非法，用于演示异常数据状态。",
+      "evidence": [{ "kind": "excerpt", "text": "来源等级非法。", "sourceTier": "B" }],
+      "contentTags": ["fact"],
+      "direction": "neutral"
+    }
+  ]
+}

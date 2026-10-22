@@ -1,0 +1,173 @@
+{
+  "events": [
+    {
+      "id": "EV-20260915-01",
+      "type": "industry",
+      "occurredAt": "2026-09-15T10:00:00+08:00",
+      "occurredAtTz": "Asia/Shanghai",
+      "title": "行业协会发布 8 月动力电池结构件月度数据",
+      "source": { "name": "新能源行业协会（虚构）", "tier": "B", "url": "https://example-industry.cn/monthly/202609?fake=1" },
+      "summary": "8 月行业结构件出货量环比增长 3.2%，增速平稳。",
+      "evidence": [
+        { "kind": "excerpt", "text": "8 月结构件出货量环比增长 3.2%，行业景气度保持平稳。", "sourceTier": "B" }
+      ],
+      "contentTags": ["fact"],
+      "direction": "neutral"
+    },
+    {
+      "id": "EV-20260922-01",
+      "type": "news",
+      "occurredAt": "2026-09-22T11:20:00+08:00",
+      "occurredAtTz": "Asia/Shanghai",
+      "title": "多家机构下调新能源板块三季度盈利预期",
+      "source": { "name": "环球财讯（虚构媒体）", "tier": "B", "url": "https://example-news.com/sector-q3?fake=1" },
+      "summary": "受上游价格波动影响，机构对板块三季度盈利预期趋于谨慎。",
+      "evidence": [
+        { "kind": "excerpt", "text": "多家机构认为板块三季度盈利增速可能放缓。", "sourceTier": "B" }
+      ],
+      "contentTags": ["opinion"],
+      "direction": "negative"
+    },
+    {
+      "id": "EV-20260929-01",
+      "type": "news",
+      "occurredAt": "2026-09-29T13:40:00+08:00",
+      "occurredAtTz": "Asia/Shanghai",
+      "title": "网传：华辰科技「疑似拿到海外大单」",
+      "source": { "name": "某财经自媒体（虚构）", "tier": "C", "url": "https://example-selfmedia.com/rumor?fake=1" },
+      "summary": "有自媒体称公司疑似获得海外大额订单，未获公司证实。",
+      "evidence": [
+        { "kind": "excerpt", "text": "据传公司已进入某海外客户供应链，消息来源不明，公司未回应。", "sourceTier": "C" }
+      ],
+      "contentTags": ["opinion"],
+      "direction": "positive"
+    },
+    {
+      "id": "EV-20261009-01",
+      "type": "announcement",
+      "occurredAt": "2026-10-09T18:32:00+08:00",
+      "occurredAtTz": "Asia/Shanghai",
+      "title": "华辰科技关于签订重大销售合同的公告",
+      "source": { "name": "上海证券交易所·公司公告", "tier": "A", "url": "https://example-sse.cn/disclosure/600888/20261009?fake=1" },
+      "summary": "公司拟与某新能源车企签订动力电池结构件销售合同，金额约 8.6 亿元，占公司 2025 年度经审计营业收入（约 27.8 亿元）的 31%。",
+      "evidence": [
+        { "kind": "excerpt", "text": "合同总金额约人民币 86,000 万元，预计对 2027 年度经营成果产生积极影响。", "sourceTier": "A" },
+        { "kind": "excerpt", "text": "合同履行存在客户需求不及预期、原材料价格波动等风险。", "sourceTier": "A" }
+      ],
+      "contentTags": ["fact"],
+      "direction": "positive"
+    },
+    {
+      "id": "EV-20261010-01",
+      "type": "industry",
+      "occurredAt": "2026-10-10T01:30:00Z",
+      "occurredAtTz": "UTC",
+      "title": "海外某国宣布拟加征储能产品关税（行业）",
+      "source": { "name": "环球财讯（虚构媒体）", "tier": "B", "url": "https://example-news.com/global/tariff?fake=1" },
+      "summary": "拟对储能电池及结构件加征 15% 关税，行业出口承压。（北京时间 10-10 周六 09:30）",
+      "evidence": [
+        { "kind": "excerpt", "text": "拟于两周后公开征求意见，尚未正式生效。", "sourceTier": "B" }
+      ],
+      "contentTags": ["fact"],
+      "direction": "negative"
+    },
+    {
+      "id": "EV-20261012-01",
+      "type": "news",
+      "occurredAt": "2026-10-12T08:50:00+08:00",
+      "occurredAtTz": "Asia/Shanghai",
+      "title": "媒体报道：华辰科技盘后公告引发市场关注",
+      "source": { "name": "环球财讯（虚构媒体）", "tier": "B", "url": "https://example-news.com/hc-focus?fake=1" },
+      "summary": "多家媒体盘前报道公司重大合同公告，市场关注度提升。",
+      "evidence": [
+        { "kind": "excerpt", "text": "开盘前，公司重大合同公告成为财经媒体头条之一。", "sourceTier": "B" }
+      ],
+      "contentTags": ["fact"],
+      "direction": "positive"
+    },
+    {
+      "id": "EV-20261012-02",
+      "type": "news",
+      "occurredAt": "2026-10-12T10:15:00+08:00",
+      "occurredAtTz": "Asia/Shanghai",
+      "title": "公司在互动易回应：合同预计明年开始交付",
+      "source": { "name": "互动易平台（虚构）", "tier": "B", "url": "https://example-irm.cn/600888/10212?fake=1" },
+      "summary": "公司盘中回应投资者：合同预计 2027 年开始交付，短期业绩影响有限。",
+      "evidence": [
+        { "kind": "excerpt", "text": "公司回复：合同预计 2027 年开始交付，请投资者注意风险。", "sourceTier": "B" }
+      ],
+      "contentTags": ["fact"],
+      "direction": "neutral"
+    },
+    {
+      "id": "EV-20261017-01",
+      "type": "industry",
+      "occurredAt": "2026-10-17T10:00:00+08:00",
+      "occurredAtTz": "Asia/Shanghai",
+      "title": "行业主管部门发布《动力结构件安全标准（征求意见稿）》",
+      "source": { "name": "行业主管部门（虚构）", "tier": "B", "url": "https://example-gov.cn/standard-draft?fake=1" },
+      "summary": "征求意见稿要求新增多项安全测试，行业普遍预期将增加合规成本。（周六发布）",
+      "evidence": [
+        { "kind": "excerpt", "text": "征求意见稿新增 12 项安全测试要求，行业反馈实施成本将明显上升。", "sourceTier": "B" }
+      ],
+      "contentTags": ["fact"],
+      "direction": "negative"
+    },
+    {
+      "id": "EV-20261019-01",
+      "type": "news",
+      "occurredAt": "2026-10-19T07:40:00+08:00",
+      "occurredAtTz": "Asia/Shanghai",
+      "title": "券商晨会点评：安全新规或压制板块短期情绪",
+      "source": { "name": "某券商研究所（虚构）", "tier": "C", "url": "https://example-broker.cn/morning?fake=1" },
+      "summary": "晨会观点认为新规将压制板块短期表现，建议观望。（观点，非事实）",
+      "evidence": [
+        { "kind": "excerpt", "text": "分析师认为：新规落地前板块情绪偏弱，建议观望。", "sourceTier": "C" }
+      ],
+      "contentTags": ["opinion"],
+      "direction": "negative"
+    },
+    {
+      "id": "EV-20261026-01",
+      "type": "news",
+      "occurredAt": "2026-10-26T10:05:00+08:00",
+      "occurredAtTz": "Asia/Shanghai",
+      "title": "股吧网传「大客户砍单」截图，公司暂无回应",
+      "source": { "name": "股吧（虚构）", "tier": "C", "url": "https://example-guba.cn/600888/1026?fake=1" },
+      "summary": "有用户发布所谓「砍单」聊天截图，真实性未证实，公司未回应，主流媒体无报道。",
+      "evidence": [
+        { "kind": "excerpt", "text": "截图内容无法核实，发布者匿名，无任何官方或主流媒体佐证。", "sourceTier": "C" }
+      ],
+      "contentTags": ["opinion"],
+      "direction": "negative"
+    },
+    {
+      "id": "EV-20261030-01",
+      "type": "announcement",
+      "occurredAt": "2026-10-30T11:50:00+08:00",
+      "occurredAtTz": "Asia/Shanghai",
+      "title": "华辰科技澄清公告：生产经营正常，未发生重大不利变化",
+      "source": { "name": "上海证券交易所·公司公告", "tier": "A", "url": "https://example-sse.cn/disclosure/600888/1030?fake=1" },
+      "summary": "公司午间澄清：生产经营正常，在手订单稳定，未发生应披露未披露事项。",
+      "evidence": [
+        { "kind": "excerpt", "text": "公司目前生产经营活动正常，在手订单稳定，不存在应披露而未披露的重大事项。", "sourceTier": "A" }
+      ],
+      "contentTags": ["fact"],
+      "direction": "neutral"
+    },
+    {
+      "id": "EV-20261102-01",
+      "type": "announcement",
+      "occurredAt": "2026-11-02T19:10:00+08:00",
+      "occurredAtTz": "Asia/Shanghai",
+      "title": "华辰科技关于新增订单的自愿性披露公告",
+      "source": { "name": "上海证券交易所·公司公告", "tier": "A", "url": "https://example-sse.cn/disclosure/600888/1102?fake=1" },
+      "summary": "公司披露新增一批订单，金额约 1.2 亿元。（映射交易日超出 K 线区间，用于范围外状态演示）",
+      "evidence": [
+        { "kind": "excerpt", "text": "公司近期新增订单金额约人民币 12,000 万元。", "sourceTier": "A" }
+      ],
+      "contentTags": ["fact"],
+      "direction": "positive"
+    }
+  ]
+}

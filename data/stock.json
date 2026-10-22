@@ -1,0 +1,18 @@
+{
+  "code": "600888.SH",
+  "name": "华辰科技（虚构）",
+  "exchange": "SSE",
+  "exchangeTimezone": "Asia/Shanghai",
+  "board": "main",
+  "priceLimitPct": 0.10,
+  "currency": "CNY",
+  "anomalyRules": {
+    "priceMovePctThreshold": 0.07,
+    "volumeRatioThreshold": 3.0,
+    "volumeAvgWindow": 30,
+    "eventWindowDays": [-1, 0, 1],
+    "cumulativeMovePct3d": 0.20
+  },
+  "dataRange": { "start": "2026-09-01", "end": "2026-10-30" },
+  "disclaimer": "本页面全部为虚构模拟数据，仅用于教学演示，不构成任何投资建议。"
+}

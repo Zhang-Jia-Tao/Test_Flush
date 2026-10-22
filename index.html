@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>股价异动解释 Agent · 华辰科技 600888.SH（虚构演示）</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <!-- A. 顶部信息栏 -->
+  <header id="topbar" class="topbar">
+    <div class="topbar__stock">
+      <h1 class="topbar__name">--</h1>
+      <span class="topbar__code">--</span>
+      <span class="topbar__meta">--</span>
+    </div>
+    <div id="topbar-price" class="topbar__price" aria-live="polite"></div>
+    <div class="topbar__legend">
+      <span class="legend-item"><i class="legend-dot legend-dot--up"></i>显著上涨（≥+7%）</span>
+      <span class="legend-item"><i class="legend-dot legend-dot--down"></i>显著下跌（≤−7%）</span>
+      <span class="legend-item"><i class="legend-dot legend-dot--weak"></i>证据不足异动</span>
+    </div>
+    <div class="topbar__actions">
+      <button id="btn-reset" class="btn btn--ghost" type="button">重置选择</button>
+    </div>
+  </header>
+
+  <!-- 状态横幅（异常数据/加载失败） -->
+  <div id="banner" class="banner hidden" role="alert"></div>
+
+  <main id="layout" class="layout">
+    <!-- B. K 线图区 -->
+    <section id="chart-panel" class="panel panel--chart" aria-label="K 线图">
+      <div class="panel__title">
+        日 K 与成交量 <span class="panel__hint">点击蜡烛选中交易日；异动日已高亮</span>
+        <span id="chart-ohlc" class="ohlc-readout" aria-live="polite"></span>
+      </div>
+      <div id="chart" class="chart"></div>
+      <div id="chart-state" class="state-layer hidden"></div>
+    </section>
+
+    <!-- C. 事件时间线 -->
+    <section id="timeline-panel" class="panel panel--timeline" aria-label="事件时间线">
+      <div class="panel__title">事件时间线 <span class="panel__hint">按映射交易日分组</span></div>
+      <div id="timeline" class="timeline"></div>
+      <div id="timeline-state" class="state-layer hidden"></div>
+    </section>
+
+    <!-- D. 事件详情面板 -->
+    <section id="detail-panel" class="panel panel--detail" aria-label="事件详情">
+      <div class="panel__title">事件详情</div>
+      <div id="detail" class="detail"><div class="detail__placeholder">点击时间线中的事件查看详情</div></div>
+      <div id="detail-state" class="state-layer hidden"></div>
+    </section>
+  </main>
+
+  <!-- E. 浮动 Agent 助手 -->
+  <button id="fab" class="fab" type="button" aria-label="打开异动解释助手" title="异动解释助手">
+    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+      <path fill="currentColor" d="M12 2a7 7 0 0 1 7 7v1.1a5 5 0 0 1-1 9.9H8a6 6 0 0 1-6-6c0-2.9 2-5.3 4.7-5.9A7 7 0 0 1 12 2zm-2 8a1.2 1.2 0 1 0 0 2.4A1.2 1.2 0 0 0 10 10zm5 0a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z"/>
+    </svg>
+    <span id="fab-badge" class="fab__badge hidden">!</span>
+  </button>
+  <div id="assistant" class="assistant hidden" role="dialog" aria-label="异动解释助手面板">
+    <div class="assistant__header">
+      <span class="assistant__title">异动解释助手 <em>（模拟规则 · 非真实模型）</em></span>
+      <button id="assistant-close" class="btn btn--ghost btn--sm" type="button" aria-label="关闭">✕</button>
+    </div>
+    <div id="assistant-body" class="assistant__body"></div>
+    <div class="assistant__footer">本页面为虚构模拟数据的教学演示，不构成任何投资建议。</div>
+  </div>
+
+  <script src="vendor/echarts.min.js"></script>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

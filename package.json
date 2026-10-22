@@ -1,0 +1,10 @@
+{
+  "name": "stock-anomaly-explainer",
+  "version": "1.0.0",
+  "description": "股价异动解释 Agent —— K 线与事件时间线 + 浮动规则助手（纯前端自包含演示）",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  }
+}

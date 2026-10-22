@@ -1,0 +1,17 @@
+{
+  "reports": [
+    {
+      "id": "FIN-20260828-01",
+      "reportPeriod": "2026-06-30",
+      "reportType": "半年报",
+      "occurredAt": "2026-08-28T18:05:00+08:00",
+      "source": { "name": "公司 2026 年半年度报告", "tier": "A", "url": "https://example-sse.cn/disclosure/600888/H1?fake=1" },
+      "metrics": [
+        { "name": "营业收入", "value": 27.6, "unit": "亿元", "yoy": 0.184 },
+        { "name": "归母净利润", "value": 2.31, "unit": "亿元", "yoy": 0.092 }
+      ],
+      "summary": "营收同比增长 18.4%，归母净利润同比增长 9.2%，低于部分机构预期。（注：半年报财务数据未经审计；2025 年度经审计营业收入约 27.8 亿元）",
+      "contentTags": ["fact"]
+    }
+  ]
+}

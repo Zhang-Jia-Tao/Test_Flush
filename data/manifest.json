@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "generatedBy": "手工策划（curated），非随机生成",
+  "fictional": true,
+  "fictionStatement": "全部数据为虚构的「华辰科技 600888.SH」教学演示数据，不对应任何真实证券与事件。",
+  "files": {
+    "stock.json": { "records": 1, "description": "股票元信息与异动阈值配置" },
+    "calendar.json": { "records": 39, "description": "2026-09-01 ~ 2026-10-30 交易日历，含 10-01~10-07 虚构国庆假期" },
+    "kline.json": { "records": 39, "description": "日 K；预埋 T_up(10-12 +8.61%)、T_down(10-19 -8.09%)、T_weak(10-26 -7.21%) 三个异动日" },
+    "events.json": { "records": 12, "description": "公告/新闻/行业事件统一流；故意混合 UTC 与 +08:00 时间戳；含范围外事件 1 条" },
+    "financials.json": { "records": 1, "description": "半年报财务数据（区间外，仅资料展示）" }
+  },
+  "scenarioAnchors": {
+    "T_up": { "date": "2026-10-12", "movePct": 0.0861, "cause": "10-09 盘后重大合同公告（盘后→次日映射）+ 10-10 UTC 关税利空（竞争解释）" },
+    "T_down": { "date": "2026-10-19", "movePct": -0.0809, "cause": "10-17 周六行业政策利空（非交易日→周一映射）" },
+    "T_weak": { "date": "2026-10-26", "movePct": -0.0721, "cause": "窗口内仅有 C 级网传截图（证据不足用例）" }
+  }
+}

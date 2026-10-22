@@ -1,0 +1,8 @@
+{
+  "bars": [
+    { "date": "2026-09-01", "open": 12.10, "high": 12.18, "low": 11.98, "close": 12.10, "volume": 4820000, "amount": 58300000, "anomalyTag": null },
+    { "date": "2026-09-02", "open": 12.05, "low": 11.95, "close": 12.02, "volume": 4100000, "amount": 49300000, "anomalyTag": null },
+    { "date": "2026-13-40", "open": 12.02, "high": 12.15, "low": 11.98, "close": 12.08, "volume": 4300000, "amount": 51900000, "anomalyTag": null },
+    { "date": "2026-09-04", "open": 12.08, "high": 12.20, "low": 12.00, "close": "abc", "volume": 4500000, "amount": 54900000, "anomalyTag": null }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "scope": "new-feature",
+  "stack": "frontend-only",
+  "languages": ["javascript"],
+  "frameworks": ["vanilla-js", "echarts5"],
+  "complexity": "high",
+  "securitySensitive": false,
+  "databaseChanges": false,
+  "modelTier": "opus",
+  "testFramework": "node:test",
+  "buildSystem": "none (zero-build, vendored ECharts)",
+  "classifiedAt": "2026-10-22T02:10:00Z",
+  "originalRequest": "股价异动解释 Agent：纯前端自包含网页（原生 HTML/CSS/JS ES modules + ECharts 5 vendored，零构建零后端），K线图+事件时间线+事件详情+浮动规则Agent助手，内置模拟数据（虚构股票600888.SH），核心纯函数模块（calendar/timeMapper/anomaly/evidence/agent/schema）用 node:test TDD，7+测试用例，四类标签（事实/观点/时间相关性/因果假设），四种状态（loading/empty/out-of-range/error）。项目位于 E:\\Test_Flush，docs/ 下已有完整需求分析与设计基线（01~05），代码从零开始。",
+  "notes": {
+    "designBaseline": "docs/05-数据结构与规则设计.md 为直接编码基线",
+    "milestones": ["M1 骨架", "M2 核心规则 TDD", "M3 数据与四向联动", "M4 状态与健壮性", "M5 文档与验收"],
+    "phase3Skip": false,
+    "phase3Note": "frontend-only 但视觉基准已由 docs/01 页面结构 + docs/02 UI 方案定义，无需 Pixso/ui-prototype，直接按文档实现",
+    "estimatedFiles": 20
+  }
+}

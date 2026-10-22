@@ -47,4 +47,87 @@
 
 ---
 
-## 阶段 1：（待续）
+## 阶段 1：M1~M5 全量实现（2026-10-22，Claude Code / smart-flow 智能模式）
+
+### 用户指令（原文要点）
+
+> 先详细浏览该项目，然后明确 docs 下的需求与提供的知识库，并按照要求进行，先规划实现路径，再逐步实现，并进行详细的测试。
+
+### Agent 执行过程
+
+1. **模式选择**：smart-flow 编排器询问运行模式，用户选择「智能模式（Smart）」。
+2. **Phase 0 需求分类**：通读 docs/01~05 与 Plan.md，产出 `.smartflow/requirement-profile.json`（scope=new-feature, stack=frontend-only, languages=[javascript], complexity=high, testFramework=node:test）。
+3. **实现路径规划**：按 docs/01 第 11 节里程碑拆为 5 个任务——M1 骨架 / M2 核心规则 TDD / M3 数据与四向联动 / M4 四状态 / M5 文档验收。
+4. **M1 骨架**：建目录（src/core、src/ui、src/utils、styles、vendor、data、tests）；从 npmmirror 下载 ECharts 5.5.1（约 1MB）到 vendor/（jsdelivr 直连失败，exit 35，换镜像成功）；写 index.html 五区布局与 styles/main.css 全量样式（深色主题，A股红涨绿跌配色）。
+5. **M2 核心规则 TDD**：先写 4 个测试文件（timeMapper/anomaly/agent/schema，21 个用例，覆盖 T1~T7 全部规格），再实现 6 个纯函数模块。首轮 19/21，两处失败：
+   - 量比 3.0 命中时 volumeSurge 未加入 triggers（漏 push）；
+   - 15:00:00 整的 phase 应为 after-hours（归当日但属盘后），原实现归入 trading-hours 分支。
+   修复后 21/21 全绿。
+6. **M3 数据与联动**：
+   - 用 Node 脚本生成 calendar.json（39 个交易日，10-01~10-07 虚构国庆）与 kline.json（剧情锚点：10-12 +8.61% 量比3.8×、10-19 −8.09%、10-26 −7.21%，生成后校验 low≤open/close≤high）；
+   - 手工策划 events.json 12 条（混合 UTC/+08:00 时间戳，覆盖盘后/非交易日/时区跨日/证据不足/范围外全部场景）+ financials.json + manifest.json + data/broken/ 坏数据集；
+   - 实现 chart.js（candlestick+bar 双 grid、markPoint 异动图钉、事件散点、markArea 选中背景带、dataZoom）、timeline.js（按映射日分组、范围外灰显、scrollIntoView+flash 高亮）、detail.js（6 字段+三时间+映射原因+证据卡）、assistant.js（FAB+面板、因素卡含置信度条与定位按钮）、states.js、app.js（事件总线 + selectDate/selectEvent/locateEvent 联动闭环）。
+7. **浏览器验证受阻与数据管线集成验证**：启动 http.server 时发现 8000 端口被既有 uvicorn 服务占用（netstat+wmic 定位），改用 8018；chrome-devtools MCP 本会话不可用，改用 Node 跑全数据管线集成验证——12 条事件映射结果全部符合预期（盘后→10-12、周六→10-19、UTC 跨日、11-02 范围外 null），助手三场景输出正确（T_up 主因合同 conf 0.75 高、T_weak evidence-insufficient、普通日 normal-day）。
+8. **M4 四状态**：URL 开关 ?demo=empty/broken/loading 与 ?date=YYYY-MM-DD 已内建于 app.js；broken 数据管线验证输出「good=1 skipped=3」「good=0 skipped=2」，错误定位到行号/id。
+9. **M5 文档**：写 README（启动方式/交互流程/实现方案/已知限制/规则来源追溯）；修正 package.json test 脚本（`node --test tests/` 在 Windows Node 22 下无法解析目录，改为 `tests/*.test.js`）。
+10. **代码审核（内联自查）**：用户拒绝启动 code-reviewer 子代理，改为内联审核，发现并修复：
+    - HIGH：evidence.js:33 `Math.min(nEvidence*0.1, 0.9-score>0 ? ... : 0)` 运算符优先级混乱（碰巧被后续封顶兜住），简化为 `score = Math.min(score + nEvidence*0.1, 0.9)`；
+    - MEDIUM：agent.js hasFact 判定会误伤无 evidence 数组的财务事件（其本体即 A 级事实），补 `|| e.type === 'financial'`；
+    - MEDIUM：app.js 重置按钮复制了 renderAll 的分组逻辑，提取 buildGroups() 消除重复；
+    - LOW：XSS 面评估——用户数据均走 textContent，innerHTML 仅注入固定文案，模拟链接来自本地策划数据，风险可接受。
+    修复后 21/21 仍全绿。
+
+### 本阶段关键决策（及理由）
+
+| # | 决策 | 理由 |
+| --- | --- | --- |
+| D9 | TDD：先写全部 21 个测试再实现 | docs/05 第 4 节已给断言级规格，测试即验收标准；首轮 19/21 也验证了测试先行的价值（抓到 phase 边界与 triggers 遗漏） |
+| D10 | 15:00:00 整归当日但 phase 标 after-hours | docs/05 边界表明确约定；「归当日」与「属盘后时段」是两个维度 |
+| D11 | K 线用脚本生成 + 手工校验，事件手工策划 | 行情需要数值自洽（涨跌幅、量比精确可控），事件需要叙事精确对应测试用例 |
+| D12 | 8000 端口冲突换 8018，不杀既有进程 | 端口被无关 uvicorn 服务占用，杀进程影响他人工作，换端口零成本 |
+| D13 | chrome-devtools MCP 不可用时用 Node 集成验证兜底 | 核心价值在规则正确性（纯函数可全验证）；浏览器视觉走查列为待用户确认项 |
+| D14 | evidence.js 评分表达式重写为两步 | 运算符优先级陷阱（`0.9-score>0` 被解析为比较），可读性优先 |
+
+### 待用户确认/后续事项
+
+1. **浏览器视觉走查**：chrome-devtools MCP 本会话不可用，请在浏览器打开 `http://127.0.0.1:8018/`（服务器已启动）人工确认：K 线渲染、点击 10-12/10-19/10-26 联动、助手因素卡、?demo=empty/broken 状态。快捷入口见 README 第二节。
+2. 验收清单（docs/05 第 6 节）中除「浏览器实测」外各项已达成：测试 21/21 全绿、四区齐全、联动闭环、四状态可复现、README 与对话记录齐备。
+3. 如需提交代码（git commit），请确认后执行。
+
+---
+
+## 阶段 2：金融专家领域复核与修正（2026-10-22）
+
+### 用户指令（原文要点）
+
+> 作为金融专家，分析 docs 下的需求是否描述准确并且实现的项目是否精准。→ 全部处理（复核发现的 3 项问题）。
+
+### 复核结论
+
+**需求文档**：总体准确、来源权威（交易时段/±7% 阈值/T−1~T+1 窗口/午休归当日均有官方或产业依据）；3 处瑕疵——① docs/05 DISTANCE_WEIGHT 与 docs/03"同向当日+0.1"口径不一致；② 观点类来源等级 D/E 与项目 3 级体系（A/B/C）未统一说明；③ 合同公告"占最近一期经审计营业收入 31%"的基数实际是未经审计的 2026 半年报，金融表述不严谨。
+
+**实现**：时间映射边界、涨跌幅限制（39 根 K 线全在 ±10% 内）、剧情金融合理性（T_up 跳空高开 +2.03%、T_down 跳空低开 −1.87%，符合真实市场行为模式）、禁词护栏（动态文案零命中"导致/推动/造成"）全部验证通过。
+
+### 复核中发现并修复的缺陷
+
+| # | 严重度 | 问题 | 修复 |
+| --- | --- | --- | --- |
+| F1 | **CRITICAL** | **方向枚举未对齐**：事件用 `positive/negative`，异动用 `up/down`，`scoreFactor` 中 `event.direction === anomaly.direction` 永远为 false——方向一致性加分与反向扣分从未生效过（此前测试通过是因为基础分+证据分恰好凑对，掩盖了逻辑失效） | evidence.js 新增 `directionOf()` 归一映射（up→positive/down→negative），同向/反向/中性三态判定 |
+| F2 | HIGH | docs/05 定义的 `DISTANCE_WEIGHT`（当日 0.10/前日 0.04/后日 0.02）未实现 | 实现三档距离权重：同向享全额、中性取一半、反向不加分 |
+| F3 | MEDIUM | 合同公告"经审计"基数口径错误 | 改为"占公司 2025 年度经审计营业收入（约 27.8 亿元）的 31%"；financials.json 补注"半年报财务数据未经审计" |
+| F4 | MEDIUM | docs/03 与 docs/05 评分口径不一致、来源等级体系未统一 | docs/03 置信度规则重写为与实现一致（含距离权重），并加"3 级体系归并说明"（D/E→C、公司公告→A）；docs/05 伪代码同步更新 |
+| F5 | LOW | 浮点精度：0.45+0.02=0.47000000000000003 | 评分结果归一到两位小数 |
+
+### 修复后的行为变化（真实数据场景）
+
+- T_up（10-12）：合同公告 conf 0.75→**0.90**（同向当日 +0.10 + 2 条证据 +0.2，A 级封顶 0.9）；反向关税利空因**反向扣分首次真正生效**（0.50→0.35→挤出前三）——竞争解释改由不确定性提示承载，排序更符合金融直觉。
+- T_down（10-19）：周六政策利空 0.50→**0.60**（同向当日 +0.10，B 级封顶 0.6）；券商晨会（opinion）维持 0.30 低置信度。
+- 测试从 21 个增至 **22 个**（新增距离权重三档断言），全部通过。
+
+### 经验教训
+
+**枚举跨层不一致是最隐蔽的缺陷类别**：两套方向枚举（事件层/异动层）各自看都合理，等值比较静默失败不报错，且测试数据恰好凑对时测试全绿。复核方法：不验证"输出对不对"，而是**逐项追踪中间计算过程**（scoreFactor 单步 trace）才暴露。
+
+---
+
+## 阶段 3：（待续）
